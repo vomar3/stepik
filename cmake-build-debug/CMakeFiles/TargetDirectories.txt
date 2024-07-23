@@ -1,0 +1,3 @@
+C:/Users/lasto/CLionProjects/stepik/cmake-build-debug/CMakeFiles/stepik.dir
+C:/Users/lasto/CLionProjects/stepik/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/lasto/CLionProjects/stepik/cmake-build-debug/CMakeFiles/rebuild_cache.dir
