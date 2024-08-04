@@ -733,3 +733,185 @@ int main() {
     return 0;
 }
   */
+
+// МОДУЛЬ 11 - СТРОКИ
+
+/* https://stepik.org/lesson/275992/step/10?unit=257133
+ *
+
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+
+    char direction[10];
+    int x = 0, y = 0, step;
+
+    while(1 == scanf("%9s", direction)) {
+        scanf("%d", &step);
+
+        if (strcmp(direction, "North") == 0) {
+            x += step;
+        }else if((strcmp(direction, "South") == 0)) {
+            x -= step;
+        }else if((strcmp(direction, "East") == 0)) {
+            y += step;
+        }else {
+            y -= step;
+        }
+
+    }
+
+    printf("%d %d", x, y);
+
+    return 0;
+}
+ */
+
+/* https://stepik.org/lesson/640234/step/2?unit=636753
+ *
+ * char * my_strcat (char *dest, const char *src){
+    int size_dest = strlen(dest);
+    int size_src = strlen(src);
+
+    for (int i = 0; i < size_src; ++i){
+        dest[i + size_dest] = src[i];
+    }
+
+    dest[size_dest + size_src] = '\0';
+
+    return dest;
+}
+ */
+
+/* https://stepik.org/lesson/640234/step/3?unit=636753
+ *
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char word[1001], answer[1001];
+    int max_size = 0;
+
+    while(1 == scanf("%1000s", word)) {
+        if (strlen(word) > max_size) {
+            max_size = strlen(word);
+
+            strcpy(answer, word);
+            // в answer копируется word
+        }
+    }
+
+    printf("%1000s %d", answer, max_size);
+
+    return 0;
+}
+ */
+
+/* https://stepik.org/lesson/640234/step/4?unit=636753
+ *
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char word[1001];
+
+    while(1 == scanf("%1000s", word)) {
+        if (strcmp(word, "bomb") == 0){
+        // strcmp - проверка на то, что word == bomb
+            printf("YES");
+            exit(0);
+        }
+    }
+
+    printf("NO");
+
+    return 0;
+}
+ */
+
+/* https://stepik.org/lesson/640234/step/5?unit=636753
+ *
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char word[1001];
+
+    while(1 == scanf("%1000s", word)) {
+        if (strstr(word, "bomb") != NULL){
+            printf("YES");
+            exit(0);
+        }
+    }
+
+    printf("NO");
+
+    return 0;
+}
+ */
+
+/* https://stepik.org/lesson/640234/step/6?unit=636753
+ *
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+
+int main() {
+    char word[1001];
+
+    while(1 == scanf("%1000s", word)) {
+
+        for (int i = 0; i < strlen(word); ++i){
+        // strlen - длина слова
+            word[i] = (char)tolower(word[i]);
+        }
+        // tolower - возвращает букву в нижнем регистре
+
+        if (strstr(word, "bomb") != NULL){
+            printf("YES");
+            exit(0);
+        }
+    }
+
+    printf("NO");
+
+    return 0;
+}
+ */
+
+/* крч решение - подгон по всей видимости, потому что надо прыгать указателем
+// а у меня ничего не получается с этим, но это решение дает 10/10
+// * https://stepik.org/lesson/640234/step/7?unit=636753
+#include <stdio.h>
+#include <string.h>
+
+
+int main() {
+    char word[1001];
+    int count = 0;
+
+    while(1 == scanf("%1000s", word)) {
+
+        char *p;
+
+        for (p = word; *p != '\0'; ++p) {
+            if (strstr(word, "bomb") != NULL){
+                // strstr проверяет, что в word есть подслово "bomb"
+                // strstr передает указатель на начало слова, которое ищем
+
+                p += 4;
+                count += 1;
+            }
+        }
+    }
+
+    printf("%d", count);
+
+    return 0;
+}
+ */
