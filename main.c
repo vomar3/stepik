@@ -915,3 +915,315 @@ int main() {
     return 0;
 }
  */
+
+//# 12 МОДУЛЬ
+
+/* https://stepik.org/lesson/832569/step/1?unit=836145
+ *
+ * int cmp_int(const void * p1, const void * p2){
+    int x = *(int *)p1;
+    int y = *(int *)p2;
+
+    if (x > y) {
+        return 1;
+    } else if (x < y) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+ */
+
+/* https://stepik.org/lesson/832569/step/3?unit=836145
+ *
+#include <stdio.h>
+#include <stdlib.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+int main() {
+
+    int number;
+    int array[1000];
+    scanf("%d", &number);
+
+    for (int i = 0; i < number; ++i) {
+        scanf("%d", &array[i]);
+    }
+
+    qsort(array, number, sizeof(int), check_numbers);
+
+    for (int i = 0; i < number; ++i) {
+        printf("%d ", array[i]);
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2){
+    int first = *(int *)p1;
+    int second = *(int *)p2;
+
+    if (first > second) {
+        return 1;
+    } else if (first < second) {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+ */
+
+/* https://stepik.org/lesson/832569/step/4?unit=836145
+ *
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+int main() {
+
+    int number;
+    int array[1000];
+    scanf("%d", &number);
+
+    for (int i = 0; i < number; ++i) {
+        scanf("%d", &array[i]);
+    }
+
+    qsort(array, number, sizeof(int), check_numbers);
+
+    for (int i = 0; i < number; ++i) {
+        printf("%d ", array[i]);
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2){
+    int first = *(int *)p1;
+    int second = *(int *)p2;
+
+    if (first > second) {
+        return -1;
+    } else if (first < second) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+ */
+
+/* https://stepik.org/lesson/832569/step/5?unit=836145
+ *
+ *
+#include <stdio.h>
+#include <stdlib.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+int main() {
+
+    int number;
+    float array[1000];
+    scanf("%d", &number);
+
+    for (int i = 0; i < number; ++i) {
+        scanf("%f", &array[i]);
+    }
+
+    qsort(array, number, sizeof(float), check_numbers);
+
+    for (int i = 0; i < number; ++i) {
+        printf("%.2f ", array[i]);
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2){
+    float first = *(float *)p1;
+    float second = *(float *)p2;
+
+    return (first > second) - (second > first);
+}
+ */
+
+/* https://stepik.org/lesson/832569/step/6?unit=836145
+ *
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define N 1000
+
+int check_symbols(const void *p1, const void *p2);
+
+int main() {
+    char array[N + 1];
+    int count = 0;
+
+    for (int i = 0; i < N; ++i) {
+        scanf("%c", &array[i]);
+
+        if (array[i] != '.') {
+            count += 1;
+
+        } else {
+            qsort(array, count, sizeof(char), check_symbols);
+
+            for (int j = 0; j < count + 1; ++j) {
+                printf("%c", array[j]);
+            }
+
+            exit(0);
+        }
+    }
+
+    return 0;
+}
+
+int check_symbols(const void * p1, const void * p2)
+{
+    return strcmp(p1, p2);
+}
+*/
+
+/* https://stepik.org/lesson/832569/step/7?unit=836145
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+int main() {
+
+    int numbers;
+    scanf("%d", &numbers);
+    int array[numbers];
+
+    for (int i = 0; i < numbers; ++i) {
+        scanf("%d", &array[i]);
+    }
+
+    qsort(array, numbers, sizeof(int), check_numbers);
+
+    for (int i = 0; i < numbers; ++i) {
+        printf("%d ", array[i]);
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2) {
+    int first = *(int *)p1;
+    int second = *(int *)p2;
+
+    while (first > 0 || second > 0) {
+        int first_l = first % 10;
+        int second_l = second % 10;
+
+        if (first_l != second_l) {
+            return first_l - second_l;
+        }
+
+        first /= 10;
+        second /= 10;
+    }
+
+    return 0;
+}
+ */
+
+/* https://stepik.org/lesson/832569/step/8?unit=836145
+ *
+ *
+#include <limits.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+#define inf INT_MAX
+
+int main() {
+
+    int numbers;
+    scanf("%d", &numbers);
+    int array[numbers], array2[numbers];
+
+    for (int i = 0; i < numbers; ++i) {
+        scanf("%d", &array[i]);
+        array2[i] = inf;
+        if (array[i] % 2 != 0) {
+            array2[i] = array[i];
+            array[i] = inf;
+        }
+    }
+
+    qsort(array, numbers, sizeof(int), check_numbers);
+
+    int count = 0;
+    for (int i = 0; i < numbers; ++i) {
+        if (array2[i] != inf) {
+            printf("%d ", array2[i]);
+        } else {
+            printf("%d ", array[count]);
+            ++count;
+        }
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2) {
+    int first = *(int *)p1;
+    int second = *(int *)p2;
+
+    return first - second;
+}
+
+ */
+/* https://stepik.org/lesson/832569/step/9?unit=836145
+
+#include <stdlib.h>
+#include <stdio.h>
+
+struct Point {
+    int x;
+    int y;
+};
+
+int cmp_Point(const void * p1, const void * p2);
+
+int main()
+{
+    struct Point a, b;
+    scanf("%d%d", &a.x, &a.y);
+    scanf("%d%d", &b.x, &b.y);
+
+    int res = cmp_Point(&a, &b);
+
+    if (res < 0)
+        printf("<\n");
+    else if (res > 0)
+        printf(">\n");
+    else
+        printf("=\n");
+
+    return 0;
+}
+
+#include <math.h>
+int cmp_Point(const void * p1, const void * p2) {
+    struct Point *first = (struct Point*)p1;
+    struct Point *second = (struct Point*)p2;
+
+    float f_dist = sqrt(pow(first->x, 2) + pow(first->y, 2));
+    float s_dist = sqrt(pow(second->x, 2) + pow(second->y, 2));
+
+    return (f_dist > s_dist) - (s_dist > f_dist);
+}
+
+ */
