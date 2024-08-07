@@ -1227,3 +1227,54 @@ int cmp_Point(const void * p1, const void * p2) {
 }
 
  */
+
+/* https://stepik.org/lesson/832569/step/10?unit=836145
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int check_numbers(const void *p1, const void *p2);
+
+typedef struct Point {
+    int x;
+    int y;
+    double distance;
+} Point;
+
+int main() {
+
+    int number;
+    scanf("%d", &number);
+    Point point[number];
+
+    for (int i = 0; i < number; ++i) {
+        scanf("%d%d", &point[i].x, &point[i].y);
+        point[i].distance = sqrt(pow(point[i].x, 2) + pow(point[i].y, 2));
+    }
+
+    qsort(point, number, sizeof(Point), check_numbers);
+
+    for (int i = 0; i < number; ++i) {
+        printf("%d %d\n", point[i].x, point[i].y);
+    }
+
+    return 0;
+}
+
+int check_numbers(const void *p1, const void *p2) {
+    Point *point1 = (Point *)p1;
+    Point *point2 = (Point *)p2;
+
+    if (point1->distance != point2->distance) {
+        return (point1->distance > point2->distance) - (point1->distance < point2->distance);
+    } else {
+        if (point1->x != point2->x) {
+            return point1->x > point2->x;
+        } else {
+            return point1->y > point2->y;
+        }
+    }
+}
+
+ */
