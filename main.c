@@ -1279,4 +1279,48 @@ int check_numbers(const void *p1, const void *p2) {
 
  */
 
-#include <stdlib.h>
+/* https://stepik.org/lesson/341699/step/6?unit=325260
+ *
+#include <stdio.h>
+#include <string.h>
+
+void replace(char *dst, const char *src);
+
+int main() {
+
+    char line[1001], new_line[1001];
+
+    while (fgets(line, sizeof line, stdin) != NULL) { // берет всю строчку, надо почитать про функцию
+        replace(new_line, line);
+        printf("%s", new_line);
+    }
+
+    return 0;
+}
+
+void replace(char *dst, const char *src) {
+
+    char *bomb = NULL; // Указатель на бомбу, изначально = NULL;
+    char *d = dst; // Указатель на новую строчку, изначально просто в начале стоит
+    char *s = (char *) src; // Указатель по тому, где мы бегаем по src
+
+    bomb = strstr(s, "bomb"); // Поиск участка "bomb" в строке src
+    // Если найдет, то вернет указатель на то, где находится, иначе = NULL
+
+    while (bomb != NULL) {
+        size_t n = bomb - s; // Расстояние от начала строчки до найденной бомбы
+        strncpy(d, s, n); // Копируем из s в d n элементов
+
+        d += n; // двигаем указатель на д на n элементов (конец строки)
+        strcpy(d, "watermelon"); // копируем в конец d "watermelon"
+
+        d += 10; // переход на 10 элементов за арбузом
+        s = bomb + 4; // перепрыгивается бомба
+
+        bomb = strstr(s, "bomb");
+    }
+
+    strcpy(d, s); // докопировалась ласт часть
+    d += '\0'; // конец строчки
+}
+ */
