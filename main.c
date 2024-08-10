@@ -1324,3 +1324,34 @@ void replace(char *dst, const char *src) {
     d += '\0'; // конец строчки
 }
  */
+
+/* https://stepik.org/lesson/652838/step/10?unit=649753 (УЖАСНЫЙ КОД)
+ *
+char * replace (const char * src) {
+    // Можно хотя бы немного сделать лучше код, посчитав количетство бомб заранее
+    // И в маллоке не умножать на 250, а + count * (water - bomb) + 1
+
+    size_t water = strlen("watermelon");
+    size_t bomb = strlen("bomb");
+
+    //char *new_line = strdup(src); // Выделение памяти под новую строку и копирование предыдущей
+
+    char *new_line = malloc(250 * (1 + strlen(src)));
+    strcpy(new_line, src);
+    // Две строчки выше делают то же самое, что и strdup
+
+    char *get_bomb = strstr(new_line, "bomb");
+
+    while (get_bomb != NULL) {
+        //new_line = realloc(new_line, strlen(new_line) + (water - bomb) + 1);
+        memmove(get_bomb + water, get_bomb + bomb, strlen(get_bomb + bomb) + 1);
+        memcpy(get_bomb, "watermelon", water);
+        get_bomb = strstr(get_bomb + water, "bomb");
+    }
+
+    // new_line += '\0';
+    return new_line;
+}
+*/
+
+
