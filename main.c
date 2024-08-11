@@ -1354,4 +1354,245 @@ char * replace (const char * src) {
 }
 */
 
+/* https://stepik.org/lesson/308217/step/4?unit=290332 (КОД ГОВНА, НУЖНА ОПТИМИЗАЦИЯ ФОРА)
 
+#include <string.h>
+void elong_add (const Decimal * a, const Decimal * b, Decimal * res) {
+    unsigned int max_n;
+    if (b->n > a->n) {
+        max_n = b->n;
+    } else {
+        max_n = a->n;
+    }
+
+    res->size = max_n + 2;
+    res->a = malloc(res->size);
+    memset(res->a, 0, res->size);
+    res->n = -1;
+
+    unsigned int plus = 0;
+    for (int i = 0; i <= max_n; ++i) {
+        if (b->n < i) {
+            res->a[i] = (a->a[i] + plus) % 10;
+            res->n += 1;
+
+            if (a->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            if (plus >= 10 && a->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+
+        } else if (a->n < i) {
+            res->a[i] = (b->a[i] + plus) % 10;
+            res->n += 1;
+
+            if (b->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            if (plus >= 10 && b->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+
+        } else {
+
+            res->a[i] = (a->a[i] + b->a[i] + plus) % 10;
+
+            if (a->a[i] + b->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            res->n += 1;
+
+            if (plus == 1 && a->n == i && b->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+        }
+    }
+}
+
+ */
+
+/* https://stepik.org/lesson/308217/step/6?unit=290332 (ТАК ЖЕ ПЛОХО, НО РАБОТАЕТ)
+
+Decimal * elong_add (const Decimal * a, const Decimal * b) {
+    Decimal *res = malloc(sizeof(Decimal));
+
+    unsigned int max_n;
+    if (b->n > a->n) {
+        max_n = b->n;
+    } else {
+        max_n = a->n;
+    }
+
+    res->size = max_n + 2;
+    res->a = malloc(res->size);
+    memset(res->a, 0, res->size);
+    res->n = -1;
+
+    unsigned int plus = 0;
+    for (int i = 0; i <= max_n; ++i) {
+        if (b->n < i) {
+            res->a[i] = (a->a[i] + plus) % 10;
+            res->n += 1;
+
+            if (a->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            if (plus >= 10 && a->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+
+        } else if (a->n < i) {
+            res->a[i] = (b->a[i] + plus) % 10;
+            res->n += 1;
+
+            if (b->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            if (plus >= 10 && b->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+
+        } else {
+
+            res->a[i] = (a->a[i] + b->a[i] + plus) % 10;
+
+            if (a->a[i] + b->a[i] + plus >= 10) {
+                plus = 1;
+            } else {
+                plus = 0;
+            }
+
+            res->n += 1;
+
+            if (plus == 1 && a->n == i && b->n == i) {
+                res->a[i + 1] = 1;
+                res->n += 1;
+            }
+        }
+    }
+
+    return res;
+}
+
+ */
+
+// TODO: попытаться сломать
+#include <assert.h>
+#include <malloc.h>
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_LEN 200
+
+typedef struct {
+    // массив для хранения числа: a[0] * 100^0 + a[1] * 100^1 + .. +  a[n - 1] *
+    // 100^(n-1)
+    char* dig;
+    int n;      // размер числа в разрядах
+    char sign;  // знак числа
+} LongN;
+
+void cleaner_LongN(LongN* x) {
+    free(x->dig);
+    x->n = 0;
+}
+
+LongN getLongN(char * s) {
+    LongN answer;
+
+    answer.sign = s[0];
+
+    if ((answer.sign >= '0' && answer.sign <= '9') || answer.sign == '+') {
+        if (answer.sign == '+') {
+            s++;
+        }
+        answer.sign = 0;
+    } else {
+        answer.sign = 1;
+        s++;
+    }
+
+    answer.n = (strlen(s) + 1) / 2;
+    answer.dig = malloc(sizeof(char) * answer.n);
+
+    return answer;
+}
+
+
+// ==============================
+
+void test() {
+    LongN x = getLongN("-12345");
+    printf("\n%d %d %d\n", (int)x.dig[0], (int)x.dig[1], (int)x.dig[2]);
+
+    puts("");
+    assert(x.sign == 1);
+    assert(x.n == 3);
+
+    cleaner_LongN(&x);
+}
+
+int main() {
+    //  LongN x = getLongN("-12345");
+    //  printf("%d\n", x.sign);
+    //  printf("%d\n", x.n);
+    test();
+
+    return 0;
+}
+
+/* https://stepik.org/lesson/308217/step/7?unit=290332
+
+#define CHAR_TO_INT(c) (int)(c - '0')
+
+LongN getLongN(char *s) {
+    LongN answer;
+
+    answer.sign = s[0];
+
+    if ((answer.sign >= '0' && answer.sign <= '9') || answer.sign == '+') {
+        if (answer.sign == '+') {
+            s++;
+        }
+        answer.sign = 0;
+    } else {
+        answer.sign = 1;
+        s++;
+    }
+
+    answer.n = (strlen(s) + 1) / 2;
+    answer.dig = malloc(sizeof(char) * answer.n);
+
+    for (int i = strlen(s) - 1, j = 0; i >= 0; i -= 2, ++j) {
+        if (i == 0) {
+            answer.dig[j] = (char)(CHAR_TO_INT(s[i]));
+            return answer;
+        }
+        answer.dig[j] = CHAR_TO_INT(s[i]) + CHAR_TO_INT(s[i - 1]) * 10;
+    }
+
+
+    return answer;
+}
+ */
