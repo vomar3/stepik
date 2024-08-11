@@ -1531,3 +1531,36 @@ LongN getLongN(char *s) {
     return answer;
 }
  */
+
+/* https://stepik.org/lesson/308217/step/7?unit=290332 (без функции)
+
+LongN getLongN(char *s) {
+    LongN answer;
+
+    answer.sign = s[0];
+
+    if ((answer.sign >= '0' && answer.sign <= '9') || answer.sign == '+') {
+        if (answer.sign == '+') {
+            s++;
+        }
+        answer.sign = 0;
+    } else {
+        answer.sign = 1;
+        s++;
+    }
+
+    answer.n = (strlen(s) + 1) / 2;
+    answer.dig = malloc(sizeof(char) * answer.n);
+
+    for (int i = strlen(s) - 1, j = 0; i >= 0; i -= 2, ++j) {
+        if (i == 0) {
+            answer.dig[j] = (int)(s[i] - '0');
+            return answer;
+        }
+        answer.dig[j] = (int)(s[i] - '0') + (int)(s[i - 1] - '0') * 10;
+    }
+
+    return answer;
+}
+
+ */
