@@ -1564,3 +1564,115 @@ LongN getLongN(char *s) {
 }
 
  */
+
+/* НАПИСАННЫЙ СТЕК
+
+#include <stdio.h>
+
+#define N 100
+
+#define inf 1111111
+
+typedef struct Stack {
+    int numbers[N];
+    unsigned int size;
+} Stack;
+
+void stack_init (Stack *st);
+
+void stack_push (Stack *st, int number);
+
+void stack_print(Stack *st);
+
+int stack_pop(Stack *st);
+
+int stack_is_empty(Stack *st);
+
+int stack_is_full(Stack *st);
+
+int main() {
+
+    Stack my_stack; // Создание стека
+    Stack *st = &my_stack; // Создание указателя st на имеющийся стек my_stack
+    stack_init(st); // Создание стека с длиной 0 по умолчанию
+
+    int check;
+    printf("stack_is_empty: %d\n", stack_is_empty(st)); // Проверка пуст стек или нет 0 - да, 1 - нет
+    printf("stack_is_full: %d\n", stack_is_full(st)); // Проверка полон ли стек. 0 - да, 1 - нет
+    stack_print(st); // Вывод стека (проверка) (пустой стек)
+    stack_push(st, 1); // Добавляем в стек 1
+    stack_push(st, 10); // Добавляем в стек 10
+    printf("stack_is_empty: %d\n", stack_is_empty(st)); // Проверка пуст стек или нет 0 - да, 1 - нет
+    printf("stack_is_full: %d\n", stack_is_full(st)); // Проверка полон ли стек. 0 - да, 1 - нет
+    stack_print(st); // Вывод стека (проверка)
+    check = stack_pop(st); // Удаление Элемента
+    printf("my_pop_element: %d\n", check); // Вывод удаляемого элемента
+    stack_print(st); // Вывод стека
+    check = stack_pop(st); // Удаление Элемента
+    printf("my_pop_element: %d\n", check); // Вывод удаляемого элемента
+    stack_print(st); // Вывод стека
+    printf("stack_is_empty: %d\n", stack_is_empty(st)); // Проверка пуст стек или нет 0 - да, 1 - нет
+    printf("stack_is_full: %d\n", stack_is_full(st)); // Проверка полон ли стек. 0 - да, 1 - нет
+    stack_push(st, 100); // Добавление элемента
+    stack_print(st); // Вывод стека
+    printf("stack_is_empty: %d\n", stack_is_empty(st)); // Проверка пуст стек или нет 0 - да, 1 - нет
+    printf("stack_is_full: %d\n", stack_is_full(st)); // Проверка полон ли стек. 0 - да, 1 - нет
+    check = stack_pop(st); // Удаление Элемента
+    printf("my_pop_element: %d\n", check); // Вывод удаляемого элемента
+    stack_print(st); // Вывод стека
+    printf("stack_is_empty: %d\n", stack_is_empty(st)); // Проверка пуст стек или нет 0 - да, 1 - нет
+    printf("stack_is_full: %d\n", stack_is_full(st)); // Проверка полон ли стек. 0 - да, 1 - нет
+
+    return 0;
+}
+
+void stack_init (Stack *st) {
+    st->size = 0;
+}
+
+void stack_push (Stack *st, int number) {
+    if (stack_is_full(st) != 0) {
+        st->numbers[st->size] = number;
+        st->size++;
+    } else {
+        printf("Стек полон...\n");
+    }
+}
+
+void stack_print(Stack *st) {
+    printf("my stack: ");
+    for (unsigned int i = 0; i < st->size; ++i) {
+        printf("%d ", st->numbers[i]);
+    }
+
+    printf("\n");
+}
+
+int stack_pop(Stack *st) {
+    if (stack_is_empty(st) != 0) {
+        int number = st->numbers[st->size - 1];
+        st->size--;
+        return number;
+    } else {
+        printf("Стек полон, возвращается мусор...\n");
+        return inf;
+    }
+}
+
+int stack_is_empty(Stack *st) {
+    if (st->size == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+int stack_is_full(Stack *st) {
+    if (st->size >= (sizeof(st->numbers) / sizeof(st->numbers[0]))) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+*/
