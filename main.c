@@ -1654,7 +1654,7 @@ int stack_pop(Stack *st) {
         st->size--;
         return number;
     } else {
-        printf("Стек полон, возвращается мусор...\n");
+        printf("Стек пуст, возвращается мусор...\n");
         return inf;
     }
 }
